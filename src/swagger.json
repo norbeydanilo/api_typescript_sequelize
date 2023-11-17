@@ -1,0 +1,248 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mi API. Using Node, Express, Sequelize for MySQL",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/todos": {
+            "post": {
+                "summary": "Crea un nuevo todo",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Todos"
+                            },
+                            "examples": {
+                                "example-1": {
+                                    "value": {
+                                        "name": "Todo 1",
+                                        "description": "Descripción del todo 1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Todo creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Todos"
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "message": "Todo created successfully",
+                                            "data": {
+                                                "id": 1,
+                                                "name": "Todo 1",
+                                                "description": "Descripción del todo 1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Obtiene todos los todos",
+                "responses": {
+                    "200": {
+                        "description": "Todos obtenidos exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Todos"
+                                    }
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "message": "Todos fetched successfully",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "name": "Todo 1",
+                                                    "description": "Descripción del todo 1"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "name": "Todo 2",
+                                                    "description": "Descripción del todo 2"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/todos/{id}": {
+            "get": {
+                "summary": "Obtiene un todo por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del todo",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo obtenido exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Todos"
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "message": "Todo fetched successfully",
+                                            "data": {
+                                                "id": 1,
+                                                "name": "Todo 1",
+                                                "description": "Descripción del todo 1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualiza un todo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del todo",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Todos"
+                            },
+                            "examples": {
+                                "example-1": {
+                                    "value": {
+                                        "name": "Todo 1 actualizado",
+                                        "description": "Descripción actualizada del todo 1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Todo actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Todos"
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "message": "Todo updated successfully",
+                                            "data": {
+                                                "id": 1,
+                                                "name": "Todo 1 actualizado",
+                                                "description": "Descripción actualizada del todo 1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Elimina un todo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del todo",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo eliminado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Todos"
+                                },
+                                "examples": {
+                                    "example-1": {
+                                        "value": {
+                                            "message": "Todo deleted successfully",
+                                            "data": {
+                                                "id": 1,
+                                                "name": "Todo 1",
+                                                "description": "Descripción del todo 1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Todos": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del todo"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del todo"
+                    }
+                },
+                "required": [
+                    "name",
+                    "description"
+                ]
+            }
+        }
+    }
+}

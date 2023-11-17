@@ -3,9 +3,10 @@ import { RequestHandler } from "express";
 import { Todos } from "../models/todos";
 
 export const createToDo: RequestHandler = async (req, res, next) => {
-  var todos = await Todos.create({ ...req.body }); // Sequelize method
+  var todos = await Todos.create({ ...req.body }); // Sequelize method // “spread operator” o “operador de propagación”. toma un objeto o un array y lo expande en sus elementos individuales
+  // ...req.body significa que estás tomando todas las propiedades del objeto req.body y las estás expandiendo
   return res
-    .status(200)
+    .status(201)
     .json({ message: "Todo created successfully", data: todos });
 };
 
