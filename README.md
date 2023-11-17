@@ -55,6 +55,8 @@ Additionally this project uses:
 
 Debes tener creada unicamente la base de datos. El ORM se encarga del mapeo entre la especificación en código y la base de datos MySQL.
 
+La base de datos para este ejemplo se llama `todo`.
+
 Debes tener instalado Swagger.
 
 ```bash
